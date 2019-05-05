@@ -24,7 +24,6 @@
 ###########程序各部分实现  
 config.go :
            利用"gopkg.in/ini.v1"包实现对配置文件的解析并封装成结构体
- 
 connent.go ：
            调用"golang.org/x/crypto/ssh"包向连接主机并发送运行tiDB组件部署的命令   
 path.go :
