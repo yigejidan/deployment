@@ -3,6 +3,7 @@ package getconf
 import (
   "log"
   "gopkg.in/ini.v1"
+  "sync"
 )
 
 //Config ： 部署集群结构体
@@ -14,8 +15,12 @@ type Config struct {
 }
 
 
+var m *sync.RWMutex
+
 //ReadConfig 读取配置文件并转成结构体
 func ReadConfig(path string) (Config, error) {
+  m.RLock()
+  defer m.RUnlock()
   var config Config
   conf, err := ini.Load(path)   //加载配置文件
   if err != nil {

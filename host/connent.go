@@ -6,10 +6,16 @@ import (
     "golang.org/x/crypto/ssh"
     "deployment/getconf"
     "log"
-    "net"
+	"net"
+	"sync"
 )
+
+var m *sync.Mutex
+
 //ConnentHost 连接主机主程序
 func ConnentHost(path string) error {
+	m.Lock()
+	defer m.Unlock()
     config,err := getconf.ReadConfig(path)   //也可以通过os.arg或flag从命令行指定配置文件路径
 	if err != nil {
 		log.Fatal(err)
