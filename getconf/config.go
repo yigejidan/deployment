@@ -8,7 +8,7 @@ import (
 
 //Config ： 部署集群结构体
 type Config struct {   
-	Uesr string  `ini:"uesr"`
+	User string  `ini:"user"`
 	Password string `ini:"password"`
 	Port string `ini:"port"`
 	Command string   `ini:"command"`

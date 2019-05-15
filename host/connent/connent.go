@@ -1,38 +1,39 @@
 package connent
 
 import (
-    // "fmt"
     "bytes"
     "golang.org/x/crypto/ssh"
-    // "deployment/getconf"
     "log"
 	"net"
 	"sync"
 )
 
+//Host : 主机
+type Host struct {   
+	User string
+	Password string 
+	Port string 
+}
+
 var m *sync.Mutex
 
-// config,err := getconf.ReadConfig(path)   //也可以通过os.arg或flag从命令行指定配置文件路径
-// if err != nil {
-// 	log.Fatal(err)
-// 	return err
-// }
 
-//ConnentHost 连接主机主程序,发送命令并执行
-func ConnentHost(user string,password string,port string,command string) (result string,err error) {
+
+//RunCommand 连接主机主程序,发送命令并执行
+func RunCommand(host Host,command string) (result string,err error) {
 	m.Lock()
 	defer m.Unlock()
 
 	clientconfig := &ssh.ClientConfig{
-		User: user,
+		User: host.User,
 		Auth: []ssh.AuthMethod{
-			ssh.Password(password),	
+			ssh.Password(host.Password),	
 		},
 		HostKeyCallback: func(hostname string, remote net.Addr, key ssh.PublicKey) error {
             return nil
         },
 	}
-	client, err := ssh.Dial("tcp",port,clientconfig)
+	client, err := ssh.Dial("tcp",host.Port,clientconfig)
 	if err != nil {
 		log.Fatal("connent post err",err)
 		return "",err
