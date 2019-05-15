@@ -1,21 +1,28 @@
 package modify
 import (
-	"deployment/host"
+	"deployment/host/connent"
 	"log"
 )
 /*
-Modify : 提供变更功能
+CloseOldComponent : 关闭旧的组件
 */
-func Modify(path1 string,path2 string) error {
-	err := host.ConnentHost(path1)
+func CloseOldComponent(host connent.Host,componentname string) {
+	cmd := "docker container stop " + componentname
+	_,err := connent.RunCommand(host, cmd)
 	if err != nil {
-		log.Fatal("stop The old components err",err)
-		return err
+		log.Fatal("close component failed",err)
 	}
-	err = host.ConnentHost(path2)
+	_,err = connent.RunCommand(host, "systemctl stop docker.service")
 	if err != nil {
-		log.Fatal("start new component err ",err)
-		return err 
+		log.Fatal("stop docker failed",err)
 	}
-	return nil 
+	_,err = connent.RunCommand(host, "systemctl disable doccker.service")
+	if err != nil {
+		log.Fatal("disable docker failed",err)
+	}
+}
+
+//
+func ChangeComponentHost(oldhost connent.Host,newhost connent.Host,) {
+
 }
