@@ -3,6 +3,16 @@ import (
 	"deployment/host/connent"
 	"log"
 )
+
+//
+type Component struct {
+	Name     string
+	Port1    string
+	Port2    string
+	Path     string
+	Logfile  string
+}
+
 /*
 CloseOldComponent : 关闭旧的组件
 */
@@ -23,6 +33,6 @@ func CloseOldComponent(host connent.Host,componentname string) {
 }
 
 //ChangeComponentHost : 变更功能实现
-func ChangeComponentHost(oldhost connent.Host,newhost connent.Host,) {
+func ChangeComponentHost(oldhost connent.Host,newhost connent.Host) {
 	
 }
