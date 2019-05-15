@@ -22,7 +22,7 @@ func CloseOldComponent(host connent.Host,componentname string) {
 	}
 }
 
-//
+//ChangeComponentHost : 变更功能实现
 func ChangeComponentHost(oldhost connent.Host,newhost connent.Host,) {
-
+	
 }
