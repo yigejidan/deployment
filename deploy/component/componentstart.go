@@ -4,10 +4,15 @@ import (
 	"deployment/host/connent"
 	"log"
 	"deployment/getconf"
+	"sync"
 )
+
+var m *sync.Mutex
 
 //OpenDocker ： 开启主机docker
 func OpenDocker(host connent.Host) {
+	m.Lock()
+	defer m.Unlock()
 	start := "systemctl start docker.service"
 	enable := "systemctl enable docker.service"
 	_,err := connent.RunCommand(host,enable)
@@ -22,6 +27,8 @@ func OpenDocker(host connent.Host) {
 
 //DeployComponent ； 部署组件
 func DeployComponent(path string) error{
+	m.Lock()
+	defer m.Unlock()
 	config,err := getconf.ReadConfig(path)   //也可以通过os.arg或flag从命令行指定配置文件路径
 	if err != nil {
 		log.Fatal(err)
