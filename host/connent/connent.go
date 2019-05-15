@@ -11,28 +11,27 @@ import (
 )
 
 var m *sync.Mutex
+config,err := getconf.ReadConfig(path)   //也可以通过os.arg或flag从命令行指定配置文件路径
+if err != nil {
+	log.Fatal(err)
+	return err
+}
 
 //ConnentHost 连接主机主程序
-func ConnentHost(path string) error {
+func ConnentHost(user string,password string,port string,command string) (result string,err error) {
 	m.Lock()
 	defer m.Unlock()
-    config,err := getconf.ReadConfig(path)   //也可以通过os.arg或flag从命令行指定配置文件路径
-	if err != nil {
-		log.Fatal(err)
-		return err
-	}
-	//log.Println(config)
 
 	clientconfig := &ssh.ClientConfig{
-		User: config.Uesr,
+		User: user,
 		Auth: []ssh.AuthMethod{
-			ssh.Password(config.Password),	
+			ssh.Password(password),	
 		},
 		HostKeyCallback: func(hostname string, remote net.Addr, key ssh.PublicKey) error {
             return nil
         },
 	}
-	client, err := ssh.Dial("tcp",config.Port,clientconfig)
+	client, err := ssh.Dial("tcp",port,clientconfig)
 	if err != nil {
 		log.Fatal(err)
 		return err
@@ -45,10 +44,9 @@ func ConnentHost(path string) error {
 	defer session.Close()
 	var b bytes.Buffer
 	session.Stdout = &b
-	if err := session.Run(config.Command); err != nil {
+	if err := session.Run(command); err != nil {
 		log.Fatal(err)
 		return err
 	}
-	fmt.Println(b.String()) 
-	return nil
+	return b.string(),nil
 }
