@@ -3,7 +3,7 @@ package connent
 import (
     "bytes"
     "golang.org/x/crypto/ssh"
-    "log"
+    // "log"
 	"net"
 	// "sync"
 )
@@ -35,19 +35,19 @@ func RunCommand(host *Host,command string) (result string,err error) {
 	}
 	client, err := ssh.Dial("tcp",host.Port,clientconfig)
 	if err != nil {
-		log.Fatal("connent post err ",err)
+		// log.Fatal("connent post err ",err)
 		return "",err
 	}
 	session, err := client.NewSession()
 	if err != nil {
-		log.Fatal(err)
+		// log.Fatal(err)
 		return "",err
 	}
 	defer session.Close()
 	var b bytes.Buffer
 	session.Stdout = &b
 	if err := session.Run(command); err != nil {
-		log.Fatal("run command err: ",err)
+		// log.Fatal("run command err: ",err)
 		return "",err
 	}
 	return b.String(),nil
