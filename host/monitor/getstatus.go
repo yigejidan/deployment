@@ -46,3 +46,21 @@ func IsHaveContainer(host *connent.Host,componentname string) (bool,error) {
 	}
 }
 
+//IsOpenDocker ： 查看docker服务是否开启
+func IsOpenDocker(host *connent.Host) (bool,error) {
+	var IsOpen bool //组件正常运行为true，关闭为false
+	command := "systemctl is-active docker.service"
+	result,err := connent.RunCommand(host,command)
+	if err != nil {
+		log.Fatal("cmd :systemctl is-active docker.service run err : ",err)
+	}
+	isCon := strings.Contains(result,"active")
+	if isCon == true {
+		IsOpen = true
+		return IsOpen,nil
+	}else {
+		IsOpen = false 
+		return IsOpen,nil
+	}
+}
+
