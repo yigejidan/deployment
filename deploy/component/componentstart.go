@@ -4,15 +4,15 @@ import (
 	"deployment/host/connent"
 	"log"
 	"deployment/getconf"
-	"sync"
+	// "sync"
 )
 
-var m *sync.Mutex
+// var m *sync.Mutex
 
 //OpenDocker ： 开启主机docker
 func OpenDocker(host *connent.Host) error{
-	m.Lock()
-	defer m.Unlock()
+	// m.Lock()
+	// defer m.Unlock()
 	start := "systemctl start docker.service"
 	enable := "systemctl enable docker.service"
 	_,err := connent.RunCommand(host,enable)
@@ -30,8 +30,8 @@ func OpenDocker(host *connent.Host) error{
 
 //DeployComponent ； 部署组件
 func DeployComponent(component *getconf.Config) error{
-	m.Lock()
-	defer m.Unlock()
+	// m.Lock()
+	// defer m.Unlock()
 	host := connent.Host {
 		User : component.User,
 		Password : component.Password,

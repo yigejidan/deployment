@@ -5,7 +5,7 @@ import (
     "golang.org/x/crypto/ssh"
     "log"
 	"net"
-	"sync"
+	// "sync"
 )
 
 //Host : 主机
@@ -15,14 +15,14 @@ type Host struct {
 	Port string 
 }
 
-var m *sync.Mutex
+// var m *sync.Mutex
 
 
 
 //RunCommand 连接主机主程序,发送命令并执行
 func RunCommand(host *Host,command string) (result string,err error) {
-	m.Lock()
-	defer m.Unlock()
+	// m.Lock()
+	// defer m.Unlock()
 
 	clientconfig := &ssh.ClientConfig{
 		User: host.User,
@@ -35,7 +35,7 @@ func RunCommand(host *Host,command string) (result string,err error) {
 	}
 	client, err := ssh.Dial("tcp",host.Port,clientconfig)
 	if err != nil {
-		log.Fatal("connent post err",err)
+		log.Fatal("connent post err ",err)
 		return "",err
 	}
 	session, err := client.NewSession()
