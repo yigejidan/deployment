@@ -4,6 +4,7 @@ import (
   "log"
   "gopkg.in/ini.v1"
   "sync"
+  "deployment/host/connent"
 )
 
 //Config ： 部署集群结构体
@@ -34,4 +35,18 @@ func ReadConfig(path string) (*Config, error) {
     return config, err
   }
   return config, nil
+}
+
+//ReadConfigToHost ：读取配置文件返回主机结构体和组件结构体
+func ReadConfigToHost(path string) (host *connent.Host,component *Config) {
+	component,err := ReadConfig(path)
+	if err != nil {
+		log.Fatal("Read Config err",err)
+	}
+	host = &connent.Host{
+		User : component.User,
+		Password : component.Password,
+		Port : component.Port,
+	}
+	return host,component
 }
