@@ -50,7 +50,6 @@ func main() {
 	if err != nil {
 		log.Fatal("start tikv component failed",err)
 	}
-
 }
 
 
