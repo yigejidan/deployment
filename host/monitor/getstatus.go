@@ -12,7 +12,7 @@ import (
 //AuditComponent 监视组件运行状态
 func AuditComponent(host *connent.Host,componentname string) (status bool,err error) {
 
-	var ComponentState bool //组件正常运行为true，关闭为false
+	var ComponentState bool 
 	command := "docker ps"
 	result,err := connent.RunCommand(host,command)
 	if err != nil {
@@ -30,7 +30,7 @@ func AuditComponent(host *connent.Host,componentname string) (status bool,err er
 
 //IsHaveContainer : 查看docker里是否有该组件的container
 func IsHaveContainer(host *connent.Host,componentname string) (bool,error) {
-	var IsHave bool //组件正常运行为true，关闭为false
+	var IsHave bool 
 	command := "docker ps -a"
 	result,err := connent.RunCommand(host,command)
 	if err != nil {
@@ -48,7 +48,7 @@ func IsHaveContainer(host *connent.Host,componentname string) (bool,error) {
 
 //IsOpenDocker ： 查看docker服务是否开启
 func IsOpenDocker(host *connent.Host) (bool,error) {
-	var IsOpen bool //组件正常运行为true，关闭为false
+	var IsOpen bool 
 	command := "systemctl is-active docker.service"
 	result,err := connent.RunCommand(host,command)
 	if err != nil {
