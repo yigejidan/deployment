@@ -7,5 +7,4 @@ var (
 	TIDB2path = "D:/goproject/src/deployment/conf/tidb2.conf"
 	TIDB3path = "D:/goproject/src/deployment/conf/tidb3.conf"
 	TIKVpath = "D:/goproject/src/deployment/conf/tikv.conf"
-	Changepath = "D:/goproject/src/deployment/conf/modify.conf"
 )
