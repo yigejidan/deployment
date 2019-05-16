@@ -46,3 +46,4 @@ func OpenNewComponent(path string) {
 		log.Fatal("start New component failed",err)
 	}
 }
+
