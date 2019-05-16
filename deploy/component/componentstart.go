@@ -32,10 +32,6 @@ func OpenDocker(host *connent.Host) error{
 func DeployComponent(component *getconf.Config) error{
 	m.Lock()
 	defer m.Unlock()
-	// config,err := getconf.ReadConfig(path)   //也可以通过os.arg或flag从命令行指定配置文件路径
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
 	host := connent.Host {
 		User : component.User,
 		Password : component.Password,

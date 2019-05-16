@@ -2,6 +2,8 @@ package modify
 import (
 	"deployment/host/connent"
 	"log"
+	"deployment/getconf"
+	"deployment/deploy/component"
 )
 
 // //Component : 变更功能组件的参数结构体 
@@ -33,14 +35,14 @@ func CloseOldComponent(host *connent.Host,componentname string) {
 }
 
 //OpenNewComponent : 开启新的组件
-func OpenNewComponent(newhost connent.Host) {
-	tidb2host,tidb2component := ReadConfigToHost(path.TIDB2path)
-	err = component.OpenDocker(tidb2host)
+func OpenNewComponent(path string) {
+	Newhost,Newcomponent := getconf.ReadConfigToHost(path)
+	err := component.OpenDocker(Newhost)
 	if err != nil {
-		log.Fatal("tidb2host Open Docker err",err)
+		log.Fatal("Newhost Open Docker err",err)
 	}
-	err = component.DeployComponent(tidb2component)
+	err = component.DeployComponent(Newcomponent)
 	if err != nil {
-		log.Fatal("start tidb2 component failed",err)
+		log.Fatal("start New component failed",err)
 	}
 }
