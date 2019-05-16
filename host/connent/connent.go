@@ -47,7 +47,7 @@ func RunCommand(host *Host,command string) (result string,err error) {
 	var b bytes.Buffer
 	session.Stdout = &b
 	if err := session.Run(command); err != nil {
-		log.Fatal("run command err",err)
+		log.Fatal("run command err: ",err)
 		return "",err
 	}
 	return b.String(),nil

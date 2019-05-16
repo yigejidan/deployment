@@ -5,10 +5,13 @@ import(
 	"deployment/getconf"
 	"log"
 	"deployment/deploy/component"
+	// "fmt"
+	// "deployment/host/monitor"
 )
 
 
 func main() {
+	
 	pdhost,pdcomponent := getconf.ReadConfigToHost(path.PDpath)
 	err := component.OpenDocker(pdhost)
 	if err != nil {

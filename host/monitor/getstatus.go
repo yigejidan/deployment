@@ -4,15 +4,14 @@ import (
 	"deployment/host/connent"
 	"strings"
 	"log"
-	"sync"
+	// "sync"
 )
 
-var m *sync.Mutex
+// var m *sync.Mutex
 
 //AuditComponent 监视组件运行状态
-func AuditComponent(host connent.Host,componentname string) (status bool,err error) {
-	m.Lock()
-	defer m.Unlock()
+func AuditComponent(host *connent.Host,componentname string) (status bool,err error) {
+
 	var ComponentState bool //组件正常运行为true，关闭为false
 	command := "docker ps"
 	result,err := connent.RunCommand(host,command)
