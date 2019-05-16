@@ -18,10 +18,10 @@ type Config struct {
 var m *sync.RWMutex
 
 //ReadConfig 读取配置文件并转成结构体
-func ReadConfig(path string) (Config, error) {
+func ReadConfig(path string) (*Config, error) {
   m.RLock()
   defer m.RUnlock()
-  var config Config
+  var config *Config
   conf, err := ini.Load(path)   //加载配置文件
   if err != nil {
     log.Println("load config file fail!")

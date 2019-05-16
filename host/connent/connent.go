@@ -20,7 +20,7 @@ var m *sync.Mutex
 
 
 //RunCommand 连接主机主程序,发送命令并执行
-func RunCommand(host Host,command string) (result string,err error) {
+func RunCommand(host *Host,command string) (result string,err error) {
 	m.Lock()
 	defer m.Unlock()
 
